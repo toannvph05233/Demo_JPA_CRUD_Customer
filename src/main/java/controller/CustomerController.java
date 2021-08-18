@@ -34,14 +34,14 @@ public class CustomerController {
     }
 
     @GetMapping("/delete/{index}")
-    public String delete(@PathVariable int index) {
+    public ModelAndView delete(@PathVariable int index) {
         iCustomerService.Delete(list.get(index));
-        return "redirect:/show";
+        return new ModelAndView("redirect:/show");
     }
 
     @PostMapping("/edit/{index}")
-    public String edit(@ModelAttribute Customer customer) {
+    public ModelAndView edit(@ModelAttribute Customer customer) {
         iCustomerService.edit(customer);
-        return "redirect:/show";
+        return new ModelAndView("redirect:/show");
     }
 }
