@@ -15,10 +15,10 @@
 
 
     <h2>Show Customer</h2>
-    <a href="/customer?action=create" class="btn btn-success">Create</a>
+    <a href="/create" class="btn btn-success">Create</a>
     <br>
     <br>
-    <form action="/customer" method="get">
+    <form action="/findByName" method="get">
         <input type="text" class="form-control" placeholder="search" name="findName">
         <input type="text" hidden name="action" value="findName">
         <button type="submit" class="btn btn-success">Find</button>
@@ -43,11 +43,12 @@
             <td th:text="${customer.name}"></td>
             <td th:text="${customer.email}"></td>
             <td th:text="${customer.address}"></td>
-            <td><a th:href="@{/edit/{index}(index = ${loop.index})}" class="btn btn-warning">Edit</a></td>
-            <td><a th:href="@{/delete/{index}(index = ${loop.index})}" class="btn btn-danger">Delete</a></td>
+            <td><a th:href="@{/edit/{id}(id = ${customer.id})}" class="btn btn-warning">Edit</a></td>
+            <td><a th:href="@{/delete/{id}(id = ${customer.id})}" class="btn btn-danger">Delete</a></td>
         </tr>
         </tbody>
     </table>
+    <a href="/show?pageNumber=1" class="btn btn-warning">next</a>
 </div>
 
 </body>

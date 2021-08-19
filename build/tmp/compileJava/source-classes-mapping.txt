@@ -1,16 +1,14 @@
 config/ApplicationInitializer.java
  config.ApplicationInitializer
-config/ApplicationConfig.java
- config.ApplicationConfig
 model/Customer.java
  model.Customer
+repository/IRepositoryCustomer.java
+ repository.IRepositoryCustomer
 service/CustomerService.java
  service.CustomerService
-repository/ICustomerRepo.java
- repository.ICustomerRepo
 service/ICustomerService.java
  service.ICustomerService
-repository/CustomerRepo.java
- repository.CustomerRepo
+config/ApplicationConfig.java
+ config.ApplicationConfig
 controller/CustomerController.java
  controller.CustomerController

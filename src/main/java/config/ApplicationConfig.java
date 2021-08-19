@@ -6,10 +6,15 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -20,8 +25,6 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
-import repository.CustomerRepo;
-import repository.ICustomerRepo;
 import service.CustomerService;
 import service.ICustomerService;
 
@@ -34,6 +37,8 @@ import java.util.Properties;
 @Configuration
 @EnableWebMvc
 @ComponentScan("controller")
+@EnableJpaRepositories("repository")
+@EnableTransactionManagement
 public class ApplicationConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
@@ -96,6 +101,12 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
         return properties;
     }
+    @Bean
+    public PlatformTransactionManager transactionManager(EntityManagerFactory emf){
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(emf);
+        return transactionManager;
+    }
 
     // cấu hình thằng để thao tác với CSDL
     @Bean
@@ -104,10 +115,10 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
     }
 //   hết Cấu hình để kết nối CSDL
 
-    @Bean
-    public ICustomerRepo iCustomerRepo(){
-        return new CustomerRepo();
-    }
+//    @Bean
+//    public ICustomerRepo iCustomerRepo(){
+//        return new CustomerRepo();
+//    }
     @Bean
     public ICustomerService iCustomerService(){
         return new CustomerService();

@@ -4,11 +4,17 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "customer")
+@NamedQuery(name = "hqlSelect",query = "Select c from Customer as c")
+
 public class Customer {
+
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
+
+    @Column(name = "ten",nullable = false)
     private String name;
+
     private String email;
     private String address;
 
